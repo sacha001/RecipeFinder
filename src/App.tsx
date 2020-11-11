@@ -1,15 +1,23 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
+import React, { useState } from 'react';
 import './App.css';
+import Typography from '@material-ui/core/Typography';
 
-function App() {
+import SearchBar from './Components/SearchBar';
+import Recipes from './Components/Recipes';
+
+export default function App() {
+  const [apiSuccess, setApiSuccess] = useState({});
+  const [apiError, setApiError] = useState({});
+
   return (
     <div className="App">
-      <Button variant="contained" color="primary">
-        Hello World
-      </Button>
+      <SearchBar setApiSuccess={setApiSuccess} setApiError={setApiError} />
+      <Recipes apiSuccess={apiSuccess} apiError={apiError} />
     </div>
   );
 }
 
-export default App;
+function getRecipes() {
+  
+}
+
