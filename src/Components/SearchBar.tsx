@@ -5,10 +5,9 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-
+import mockFindByIngredientsResponse from '../MockResponses/findByIngredients';
 interface props {
-    setApiSuccess: (data: Object) => void;
-    setApiError: (data: Object) => void;
+    setApiResponse: (data: Object) => void;
 }
 
 export default function SearchBar(props:props) {
@@ -31,18 +30,20 @@ export default function SearchBar(props:props) {
 
     function handleSubmit(event:any) {
         event.preventDefault();
-        console.log('result');
-        fetch("http://localhost:8080/api")
-          .then(res => res.json())
-          .then(
-            (result) => {
-              console.log(result);
-              props.setApiSuccess(result);
-            },
-            (error) => {
-                props.setApiError(error);
-            }
-          )
+        // fetch("http://localhost:8080/recipepuppyAPI?ingredients=garlic,flour")
+        //     .then(res => res.json())
+        //     .then(
+        //     (result) => {
+        //         if (result.statusCode === 200 && result.body)
+        //             props.setApiResponse(JSON.parse(result.body));
+        //         else
+        //             props.setApiResponse({});
+        //     },
+        //     (error) => {
+        //         console.error('server error')
+        //     }
+        // )
+        props.setApiResponse(mockFindByIngredientsResponse);
     }
 }
 
