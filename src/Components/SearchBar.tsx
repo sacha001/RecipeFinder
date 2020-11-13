@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import mockFindByIngredientsResponse from '../MockResponses/findByIngredients';
+import { Autorenew } from '@material-ui/icons';
 interface props {
     setApiResponse: (data: Object) => void;
 }
@@ -53,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: '2px 4px',
             display: 'flex',
             alignItems: 'center',
-            width: 400,
+            width: 400
         },
         input: {
             marginLeft: theme.spacing(1),

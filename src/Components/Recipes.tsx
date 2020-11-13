@@ -1,5 +1,6 @@
-import React, { Component, useState, useEffect } from 'react'; // let's also import Component
+import React, { useState, useEffect } from 'react'; // let's also import Component
 import RecipeCard from './RecipeCard';
+import Grid from '@material-ui/core/Grid';
 
 interface props {
     apiResponse: any;
@@ -16,14 +17,18 @@ export default function Recipes(props:props) {
       props.apiResponse.forEach((result:any) => {
         let title = htmlDecode(result.title);
         let missingIngredients = parseMissingIngredients(result.missedIngredients);
-        recipeCards.push(<RecipeCard title={title} imageUrl={result.image} missingIngredients={missingIngredients} />);
+        recipeCards.push(
+            <RecipeCard title={title} imageUrl={result.image} missingIngredients={missingIngredients} />
+        );
       });
       setRecipeCards(recipeCards);
     }
   }, [props.apiResponse])
 
   return (
-    <div>{recipeCards}</div>
+    <Grid container spacing={3} justify='center'>
+      {recipeCards}
+    </Grid>
   );
 }
 
