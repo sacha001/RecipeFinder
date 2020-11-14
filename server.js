@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const path = require('path');
 const request = require('request');
 const cors = require('cors');
-const API_KEY = ''; // ADD spoonacular API KEY HERE
+const API_KEY = '0b3ca5aced574b62a0735b3299e78526'; // ADD spoonacular API KEY HERE
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
@@ -19,15 +19,41 @@ app.get('/recipepuppyAPI', function (req, res) {
     });
 });
 
-app.get('/findByIngredients', function (req, res) {
-    let ingredients = req.query.ingredients;
-    request.get(`http://www.recipepuppy.com/api/?ingredients=${ingredients}&number=10`, function(err, response, body) {
-        if (!err && response.statusCode == 200) {
-            res.send(response);
-        } else {
-            res.send('error');
-        }
-    });
+app.get('/spoonacularAPI/:endpoint', function (req, res) {
+    switch(req.params.endpoint) {
+        case 'findByIngredients':
+            let ingredients = req.query.ingredients;
+            request.get(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=9&apiKey=${API_KEY}`, function(err, response, body) {
+                if (!err && response.statusCode == 200) {
+                    res
+                    .status(200)
+                    .send(response);
+                } else {
+                    res
+                    .status(response.statusCode)
+                    .send('error');
+                }
+            });
+            break;
+        case 'informationBulk':
+            let ids = req.query.ids;
+            request.get(`https://api.spoonacular.com/recipes/informationBulk?ids=${ids}&apiKey=${API_KEY}`, function(err, response, body) {
+                if (!err && response.statusCode == 200) {
+                    res
+                    .status(200)
+                    .send(response);
+                } else {
+                    res
+                    .status(response.statusCode)
+                    .send('error');
+                }
+            });
+            break;
+        default:
+            res
+            .status(404)
+            .send("Endpoint not supported");
+    }    
 });
 
 app.get('/', function (req, res) {

@@ -26,7 +26,9 @@ export default function App() {
             <Typography className={classes.subtitle} gutterBottom variant="subtitle1">
               Enter your ingredients below (comma seperated) to search recipes:
             </Typography>
-            <SearchBar setApiResponse={setApiResponse} />
+            <div className={classes.searchbar}>
+              <SearchBar setApiResponse={setApiResponse} />
+            </div>
             <Recipes apiResponse={apiResponse} />
         </Grid>
       </Container>
@@ -36,9 +38,12 @@ export default function App() {
 
 const useStyles = makeStyles(theme => ({
   grid: {
-    'padding-top': '100px'
+    'padding-top': '50px'
   },
   subtitle: {
+    'padding-bottom': '10px'
+  },
+  searchbar: {
     'padding-bottom': '20px'
   }
 }));
