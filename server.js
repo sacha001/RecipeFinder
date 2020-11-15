@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const path = require('path');
 const request = require('request');
 const cors = require('cors');
-const API_KEY = ''; // ADD spoonacular API KEY HERE
+const API_KEY = '76432a43e48944deab50e8ad977e9b67'; // ADD spoonacular API KEY HERE
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
@@ -23,7 +23,8 @@ app.get('/spoonacularAPI/:endpoint', function (req, res) {
     switch(req.params.endpoint) {
         case 'findByIngredients':
             let ingredients = req.query.ingredients;
-            request.get(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=9&apiKey=${API_KEY}`, function(err, response, body) {
+            let number = req.query.number === undefined ? '9' : req.query.number;
+            request.get(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=${number}&apiKey=${API_KEY}`, function(err, response, body) {
                 if (!err && response.statusCode == 200) {
                     res
                     .status(200)
@@ -70,3 +71,5 @@ let server = app.listen(process.env.PORT || 8080, function(){
     var port = server.address().port
     console.log("Listening at http://%s:%s", host, port)
 });
+
+module.exports = app;
