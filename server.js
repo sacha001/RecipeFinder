@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const path = require('path');
 const request = require('request');
 const cors = require('cors');
-const API_KEY = '0b3ca5aced574b62a0735b3299e78526'; // ADD spoonacular API KEY HERE
+const API_KEY = ''; // ADD spoonacular API KEY HERE
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'build')));

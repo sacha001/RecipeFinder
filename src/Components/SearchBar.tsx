@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,8 +11,41 @@ interface props {
     setApiResponse: (data: Object) => void;
 }
 
+let searchedValue:string = '';
+
 export default function SearchBar(props:props) {
     const classes = useStyles();
+    const [inputValue, setInputValue] = useState('');
+    let isLoading:Boolean = false;
+
+    function handleSubmit(event:any) {
+        event.preventDefault();
+        if (inputValue === '' || isLoading || searchedValue === inputValue)
+            return;
+        
+        isLoading = true;
+
+        props.setApiResponse('loading'); // This clears the current recipe cards and adds the loading spinner
+
+        searchedValue = inputValue;
+        let ingredientsString = inputValue.replace(RegExp(/,\s+/, 'g'), ',');
+        fetch(`http://localhost:8080/spoonacularAPI/findByIngredients?ingredients=${ingredientsString}`)
+            .then(res => res.json())
+            .then(
+            (result) => {
+                isLoading = false;
+                if (result.statusCode === 200 && result.body)
+                    props.setApiResponse(JSON.parse(result.body));
+                else
+                    props.setApiResponse({});
+            },
+            (error) => {
+                isLoading = false;
+                console.error(error)
+            }
+        );
+        //props.setApiResponse(mockFindByIngredientsResponse);
+    }
 
     return(
         <form onSubmit={handleSubmit}>
@@ -21,6 +54,8 @@ export default function SearchBar(props:props) {
                     className={classes.input}
                     placeholder="Search Ingredients"
                     inputProps={{ 'aria-label': 'search ingredients' }}
+                    onChange={(e) => {setInputValue(e.target.value)}}
+                    value={inputValue}
                 />
                 <IconButton type="submit" className={classes.iconButton} aria-label="search">
                     <SearchIcon />
@@ -28,24 +63,6 @@ export default function SearchBar(props:props) {
             </Paper>
         </form>
     );
-
-    function handleSubmit(event:any) {
-        event.preventDefault();
-        // fetch("http://localhost:8080/recipepuppyAPI?ingredients=garlic,flour")
-        //     .then(res => res.json())
-        //     .then(
-        //     (result) => {
-        //         if (result.statusCode === 200 && result.body)
-        //             props.setApiResponse(JSON.parse(result.body));
-        //         else
-        //             props.setApiResponse({});
-        //     },
-        //     (error) => {
-        //         console.error('server error')
-        //     }
-        // )
-        props.setApiResponse(mockFindByIngredientsResponse);
-    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

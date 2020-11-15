@@ -27,8 +27,7 @@ export default function RecipeCard(props:props) {
         <span className={classes.ingredientsAll}>You have all the ingredients!</span>
       </>
   }
-  let ingredientsClass = props.missingIngredients ? classes.ingredientsMissing : classes.ingredientsAll; 
-  
+    
   return (
     <Slide direction="up" mountOnEnter unmountOnExit in={true} style={{ transitionDelay: true ? `${props.transitionDelayMs}ms` : '0ms' }}>
       <Card className={classes.root} onClick={() => props.getAndSetLinks(props.index)}>
@@ -62,7 +61,6 @@ const useStyles = makeStyles(theme => ({
   },
   ingredientsAll: {
     color: theme.palette.success.main,
-    opacity: 0.75
   },
   ingredientsMissing: {
     color: theme.palette.warning.main,
