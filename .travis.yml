@@ -3,4 +3,4 @@ node_js:
   - 12
 before_script:
   - cd server
-  - npm install mocha chai
+  - npm install mocha chai request
