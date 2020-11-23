@@ -4,3 +4,6 @@ node_js:
 before_script:
   - cd server
   - npm install mocha chai request
+
+after_success:
+  - sh .travis/deploy_dockerhub.sh
