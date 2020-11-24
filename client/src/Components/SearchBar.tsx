@@ -29,7 +29,7 @@ export default function SearchBar(props:props) {
 
         searchedValue = inputValue;
         let ingredientsString = inputValue.replace(RegExp(/,\s+/, 'g'), ',');
-        fetch(`http://localhost:8080/spoonacularAPI/findByIngredients?ingredients=${ingredientsString}`)
+        fetch(`http://localhost:5000/spoonacularAPI/findByIngredients?ingredients=${ingredientsString}`)
             .then(res => res.json())
             .then(
             (result) => {

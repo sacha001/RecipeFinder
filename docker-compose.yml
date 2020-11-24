@@ -1,31 +1,19 @@
 version: '3'
-
 services:
-
-  server:
-    build: ./server
-    expose:
-      - ${APP_SERVER_PORT}
-    environment:
-      API_HOST: ${API_HOST}
-      API_SERVER_PORT: ${APP_SERVER_PORT}
+  react-app:
+    image: react-app
+    stdin_open: true
     ports:
-    - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
-    volumes:
-      - ./server/src:/app/server/src
-    command: npm run start
-
-  client:
-    build: ./client
-    environment:
-      - REACT_APP_PORT=${REACT_APP_PORT}
-    expose:
-      - ${REACT_APP_PORT}
+      - "3000:3000"
+    networks:
+      - "app-network"
+  api-server:
+    image: api-server
     ports:
-    - ${REACT_APP_PORT}:${REACT_APP_PORT}
-    volumes:
-      - ./client/src:/app/client/src
-      - ./client/src:/app/client/public
-    links:
-      - server
-    command: npm run start
+      - "5000:5000"
+    networks:
+      - "app-network"
+networks:
+  app-network:
+    driver: bridge
+  

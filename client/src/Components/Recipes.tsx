@@ -54,7 +54,7 @@ export default function Recipes(props:props) {
 
     if (links.length === 0) {
       isLoading = true;
-      fetch(`http://localhost:8080/spoonacularAPI/informationBulk?ids=${ids.join(',')}`)
+      fetch(`http:/localhost:5000/spoonacularAPI/informationBulk?ids=${ids.join(',')}`)
         .then(res => res.json())
         .then(
         (result) => {

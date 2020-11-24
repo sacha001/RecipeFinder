@@ -1,12 +1,14 @@
 FROM node:12
 
-WORKDIR /app/server
+WORKDIR /usr/src/app
 
-COPY package.json /app/server
-COPY package-lock.json /app/server
+COPY ./package.json ./
+COPY ./package-lock.json ./
 
-RUN npm install
+RUN npm install request
 
-COPY . /app/server
+COPY . .
+
+EXPOSE 5000
 
 CMD ["npm", "start"]
