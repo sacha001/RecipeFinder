@@ -11,8 +11,6 @@ before_script:
   - npm install mocha chai request
 
 after_success:
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
-  - docker build -t "react-app" ./client
-  - docker push $TRAVIS_REPO_SLUG:latest
+  - sh .travis/deploy_dockerhub.sh
 
   # - docker-compose build -t $TRAVIS_REPO_SLUG:latest .
