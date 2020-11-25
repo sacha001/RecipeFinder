@@ -11,6 +11,7 @@ before_script:
   - npm install mocha chai request
 
 after_success:
+  - cd ..
   - sh .travis/deploy_dockerhub.sh
 
   # - docker-compose build -t $TRAVIS_REPO_SLUG:latest .

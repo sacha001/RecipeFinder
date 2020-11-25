@@ -5,5 +5,5 @@ if [ "$TRAVIS_BRANCH" = "master" ]; then
 else
     TAG="$TRAVIS_BRANCH"
 fi
-docker build -t "react-app:latest" ./client
-docker push "react-app:latest"
+docker build -t $TRAVIS_REPO_SLUG:$TAG ./client
+docker push $TRAVIS_REPO_SLUG:$TAG
