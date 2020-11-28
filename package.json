@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "web-vitals": "^0.2.4",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "mocha": "^8.2.1"
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mocha": "^8.2.1",
+    "request": "^2.88.2",
+    "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "node server.js",
