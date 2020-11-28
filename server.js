@@ -6,7 +6,6 @@ const cors = require('cors');
 const API_KEY = '76432a43e48944deab50e8ad977e9b67'; // ADD spoonacular API KEY HERE
 
 const app = express();
-app.use(express.static(path.join(__dirname, 'build')));
 app.use(cors());
 
 app.get('/recipepuppyAPI', function (req, res) {
@@ -57,10 +56,6 @@ app.get('/spoonacularAPI/:endpoint', function (req, res) {
     }    
 });
 
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
 // if (API_KEY === '') {
 //     console.log('\x1b[41m%s\x1b[0m', 'ERROR: You must add you API key to the server.js file')
 //     return;
@@ -73,10 +68,8 @@ let server = app.listen(process.env.PORT || 5000, function(){
 });
 
 app.use(express.static(path.join(__dirname, 'client/build')));
-if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname + '/client/build/index.html'));
-    });
-  }
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
 
 module.exports = app;
