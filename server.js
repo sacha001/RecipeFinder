@@ -72,4 +72,11 @@ let server = app.listen(process.env.PORT || 5000, function(){
     console.log("Listening at http://%s:%s", host, port)
 });
 
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname + '/client/build/index.html'));
+    });
+  }
+
 module.exports = app;
